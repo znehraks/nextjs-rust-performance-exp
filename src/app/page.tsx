@@ -11,19 +11,15 @@ export default function Home() {
     init(); // WASM 초기화
   }, []);
 
-  const processImageJS = (imageData: ImageData) => {
+  function processImageJS(imageData: ImageData) {
     const data = imageData.data;
     for (let i = 0; i < data.length; i += 4) {
-      const r = data[i];
-      const g = data[i + 1];
-      const b = data[i + 2];
-      const gray = 0.299 * r + 0.587 * g + 0.114 * b;
+      const gray = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
       data[i] = gray;
       data[i + 1] = gray;
       data[i + 2] = gray;
     }
-    return imageData;
-  };
+  }
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
